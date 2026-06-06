@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do You Qualify for Food Benefits? — Free Senior SNAP Check | Benefits Insider</title>
+<meta name="description" content="A free, senior-friendly tool to estimate if you qualify for SNAP (food stamps) in 2026 and roughly how much you could get. Built for adults 60+. Not a government site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1B2A4A;--crimson:#9B1B30;--gold:#D4A24C;--gold-l:#E8C77A;--cream:#FFF8EB;--ink:#23303f;--gray:#5A6473;--ok:#2a7d4f;--page:#FBF8F3;--line:#E0D7C2;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Sans 3',sans-serif;background:var(--page);color:var(--ink);line-height:1.6;font-size:19px;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px;}
+  /* header */
+  header{background:var(--navy);color:#fff;text-align:center;padding:30px 18px 26px;}
+  header .eyebrow{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+  header h1{font-family:'Montserrat',sans-serif;font-weight:800;font-size:30px;line-height:1.2;margin:10px 0 8px;}
+  header p{font-size:18px;color:rgba(255,255,255,.85);max-width:520px;margin:0 auto;}
+  /* card */
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px 24px;margin:22px 0;box-shadow:0 4px 18px rgba(0,0,0,.05);}
+  h2{font-family:'Montserrat',sans-serif;font-size:23px;color:var(--navy);margin:0 0 4px;}
+  .sub{color:var(--gray);font-size:17px;margin-bottom:18px;}
+  label{display:block;font-weight:700;color:var(--navy);margin:18px 0 6px;font-size:19px;}
+  .hint{font-weight:400;color:var(--gray);font-size:15px;}
+  input[type=number],input[type=email],input[type=tel],input[type=text],select{width:100%;padding:15px 16px;font-size:19px;border:2px solid #cfd6e0;border-radius:10px;font-family:inherit;background:#fff;}
+  input:focus,select:focus{outline:none;border-color:var(--gold);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .toggle{display:flex;gap:12px;margin-top:6px;}
+  .toggle button{flex:1;padding:15px;font-size:18px;font-weight:700;font-family:inherit;border:2px solid #cfd6e0;background:#fff;border-radius:10px;cursor:pointer;color:var(--navy);}
+  .toggle button.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .btn{display:block;width:100%;margin-top:24px;padding:18px;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;letter-spacing:.02em;background:var(--gold);color:var(--navy);border:none;border-radius:10px;cursor:pointer;}
+  .btn:hover{background:var(--gold-l);}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:15px;color:var(--gray);}
+  .consent input{margin-top:5px;width:20px;height:20px;flex-shrink:0;}
+  .hidden{display:none;}
+  /* results */
+  .verdict{text-align:center;padding:20px;border-radius:10px;margin-bottom:18px;}
+  .verdict.yes{background:#e8f5ee;border:1px solid #b7dcc6;}
+  .verdict.maybe{background:#FAF1DD;border:1px solid #e6d3a3;}
+  .verdict.no{background:#f6e9ea;border:1px solid #e3bcc1;}
+  .verdict .lab{font-family:'Montserrat',sans-serif;font-weight:800;font-size:26px;color:var(--navy);}
+  .est{text-align:center;margin:14px 0;}
+  .est .num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:58px;color:var(--crimson);line-height:1;}
+  .est .lab{color:var(--gray);font-size:17px;}
+  .notes{background:var(--cream);border-left:4px solid var(--gold);padding:14px 16px;border-radius:6px;margin:16px 0;font-size:17px;}
+  .notes b{color:var(--navy);}
+  .applybtn{display:block;text-align:center;background:var(--navy);color:#fff;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;padding:20px;border-radius:10px;margin-top:8px;}
+  .nextlabel{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson);text-align:center;margin-top:6px;}
+  .tip{background:var(--cream);border:1px solid #e6d3a3;border-left:5px solid var(--gold);border-radius:8px;padding:16px 18px;margin:24px 0 6px;font-size:17px;line-height:1.5;}
+  .tip-h{font-family:'Montserrat',sans-serif;font-weight:800;color:var(--navy);font-size:17px;margin-bottom:6px;}
+  .disc{font-size:13px;color:var(--gray);font-style:italic;line-height:1.5;margin-top:20px;}
+  footer{text-align:center;padding:26px 18px 44px;color:var(--gray);font-size:14px;}
+  footer b{color:var(--navy);}
+  .footdisc{max-width:600px;margin:16px auto 0;font-size:12.5px;line-height:1.6;color:var(--gray);text-align:left;border-top:1px solid var(--line);padding-top:14px;}
+  .footdisc a{color:var(--navy);}
+  .flag{background:#FEF3C7;border:1px solid #E5C97A;color:#7c5e00;font-size:13px;padding:8px 14px;text-align:center;font-family:'Montserrat',sans-serif;letter-spacing:.03em;}
+</style>
+</head>
+<body>
+<div class="flag">PROTOTYPE — FY2026 figures verified vs USDA FNS COLA memo (Aug 2025). 48 states + DC. Not yet live.</div>
+
+<!-- Netlify Forms detection (hidden). Lead submissions are captured to your Netlify dashboard — no API keys needed. Connect to beehiiv/SimpleTexting later via Netlify form notifications or Zapier. -->
+<form name="snap-leads" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email"><input type="tel" name="phone"><input type="checkbox" name="sms_consent">
+  <input name="state"><input name="household"><input name="result_status"><input name="result_estimate"><input name="bot-field">
+</form>
+
+<header>
+  <div class="eyebrow">Benefits Insider · Free Tool</div>
+  <h1>Do You Qualify for Food Benefits?</h1>
+  <p>Answer a few questions and get a 2026 estimate of whether you qualify for SNAP — and roughly how much. Built for adults 60+.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- STEP 1: QUESTIONS -->
+  <div class="card" id="formCard">
+    <h2>Your household</h2>
+    <p class="sub">Your answers stay in your browser — we don't see your income.</p>
+
+    <label>How many people live in your household? <span class="hint">(including you)</span></label>
+    <input type="number" id="hh" min="1" max="12" value="1">
+
+    <label>Is anyone in the household 60 or older, or disabled?</label>
+    <div class="toggle" id="seniorTog">
+      <button type="button" data-v="1" class="on">Yes</button>
+      <button type="button" data-v="0">No</button>
+    </div>
+
+    <label>Your state <span class="hint">(rules vary slightly by state)</span></label>
+    <select id="state">
+      <option value="">Select your state…</option>
+      <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+      <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+      <option>District of Columbia</option><option>Florida</option><option>Georgia</option><option>Hawaii</option>
+      <option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option>
+      <option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option>
+      <option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option>
+      <option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option>
+      <option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option>
+      <option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option>
+      <option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option>
+      <option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option>
+      <option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option>
+      <option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
+    </select>
+
+    <h2 style="margin-top:26px">Monthly income</h2>
+    <p class="sub">Before any deductions. Enter 0 if none.</p>
+    <label>Social Security &amp; pension <span class="hint">Your total monthly Social Security check <b>before</b> Medicare is taken out, plus any pension.</span></label>
+    <input type="number" id="unearned" min="0" value="0" inputmode="numeric">
+    <div class="row2">
+      <div><label>Money from a job <span class="hint">Before taxes. Enter 0 if retired.</span></label><input type="number" id="earned" min="0" value="0" inputmode="numeric"></div>
+      <div><label>Any other income <span class="hint">SSI, VA, etc.</span></label><input type="number" id="other" min="0" value="0" inputmode="numeric"></div>
+    </div>
+
+    <h2 style="margin-top:26px">Monthly expenses</h2>
+    <p class="sub">These can raise your benefit — especially for seniors.</p>
+    <div class="row2">
+      <div><label>Rent or mortgage <span class="hint">Your monthly housing payment.</span></label><input type="number" id="rent" min="0" value="0" inputmode="numeric"></div>
+      <div><label>Utilities <span class="hint">Heat, electric, water, phone.</span></label><input type="number" id="util" min="0" value="0" inputmode="numeric"></div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-h">💊 The #1 deduction seniors miss</div>
+      If anyone is <b>60+ or disabled</b>, out-of-pocket medical costs over $35 a month lower your countable income — and can raise your benefit. Include <b>Medicare premiums, copays, prescriptions, dental, eyeglasses, and rides to the doctor.</b>
+    </div>
+    <label>Out-of-pocket medical costs (60+/disabled) <span class="hint">Your monthly total — Medicare premiums + copays + prescriptions, etc.</span></label>
+    <input type="number" id="medical" min="0" value="0" inputmode="numeric">
+
+    <button class="btn" id="toGate">See if I qualify →</button>
+  </div>
+
+  <!-- STEP 2: LEAD GATE -->
+  <div class="card hidden" id="gateCard">
+    <h2>Your estimate is ready</h2>
+    <p class="sub">Enter your email and phone to see your result and get a free step-by-step guide to applying in your state.</p>
+    <label>Email address</label>
+    <input type="email" id="email" placeholder="you@example.com">
+    <label>Phone number</label>
+    <input type="tel" id="phone" placeholder="(555) 555-5555">
+    <div class="consent">
+      <input type="checkbox" id="smsok">
+      <label for="smsok" style="margin:0;font-weight:400;color:var(--gray);font-size:15px">Text me my results and free benefit alerts. (Optional.) Msg &amp; data rates may apply; reply STOP to opt out anytime.</label>
+    </div>
+    <button class="btn" id="toResults">Show my estimate →</button>
+    <p class="disc">Your email and phone are required to see your estimate. We never ask for your Social Security number, and your income answers are calculated on your device — not stored. See our <a href="privacy.html" style="color:var(--navy)">privacy policy</a>.</p>
+  </div>
+
+  <!-- STEP 3: RESULTS -->
+  <div class="card hidden" id="resultCard">
+    <div class="verdict" id="verdict"><div class="lab" id="verdictLab"></div><div id="verdictSub"></div></div>
+    <div class="est"><div class="num" id="estNum"></div><div class="lab">estimated monthly SNAP benefit</div></div>
+    <div class="notes" id="notes"></div>
+    <div class="nextlabel">Your next step</div>
+    <a class="applybtn" id="applyLink" href="https://www.fns.usda.gov/snap/state-directory" target="_blank" rel="noopener">Apply for SNAP in your state →</a>
+    <p class="disc">This is an <b>estimate only</b>, not an official determination. Your state SNAP agency makes the final decision based on your full situation and documents. Rules and amounts vary by state and change each October. Benefits Insider is not a government website and is not affiliated with USDA, FNS, or any agency. Figures are FY2026 and pending final verification.</p>
+  </div>
+
+</div>
+
+<footer>
+  <b>Benefits Insider™</b> · Kwame Kuadey, Adjunct Professor of Finance, Johns Hopkins Carey Business School<br>
+  No panic. No politics. Just clarity.
+  <p class="footdisc"><b>This is not a government website.</b> Benefits Insider is a private website and is not a government agency. We are <b>not affiliated with, endorsed by, or connected to</b> the U.S. Department of Agriculture (USDA), the Food and Nutrition Service (FNS), or any state SNAP/food-assistance agency. This tool gives an <b>estimate only</b> — it is not an official eligibility determination. Only your state SNAP agency can determine whether you qualify and your exact benefit amount. SNAP rules and dollar amounts vary by state and change each year. To apply, use your state's official SNAP office or <a href="https://www.fns.usda.gov/snap/state-directory" target="_blank" rel="noopener">the USDA state directory</a>. · <a href="privacy.html">Privacy Policy</a></p>
+</footer>
+
+<script>
+// ---- FY2026 CONSTANTS · 48 States + DC · Oct 1 2025–Sep 30 2026 ----
+// VERIFIED 2026-06-06 against the official USDA FNS FY2026 COLA memo (signed Aug 13, 2025).
+const MAX_ALLOT = {1:298,2:546,3:785,4:994,5:1183,6:1421,7:1571,8:1789}; const ADDL_ALLOT=218;
+const NET_LIMIT = {1:1305,2:1763,3:2221,4:2680,5:3138,6:3596,7:4055,8:4513}; const ADDL_NET=459;   // 100% FPL
+const GROSS_LIMIT = {1:1696,2:2292,3:2888,4:3483,5:4079,6:4675,7:5271,8:5867}; const ADDL_GROSS=596; // 130% FPL
+const STD_DED = s => s<=3?209 : s===4?223 : s===5?261 : 299;
+const EARN_DED=0.20, MED_THRESH=35, SHELTER_RATE=0.50, MIN_BENEFIT=24, SHELTER_CAP=744;
+const ASSET_LIMIT_SENIOR=4500, ASSET_LIMIT_GEN=3000;
+function maxAllot(s){return s<=8?MAX_ALLOT[s]:MAX_ALLOT[8]+(s-8)*ADDL_ALLOT;}
+function netLimit(s){return s<=8?NET_LIMIT[s]:NET_LIMIT[8]+(s-8)*ADDL_NET;}
+function grossLimit(s){return s<=8?GROSS_LIMIT[s]:GROSS_LIMIT[8]+(s-8)*ADDL_GROSS;}
+
+let senior=1;
+document.querySelectorAll('#seniorTog button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#seniorTog button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); senior=+b.dataset.v;
+});
+const $=id=>document.getElementById(id);
+const num=id=>Math.max(0, parseFloat($(id).value)||0);
+
+function calc(){
+  const s=Math.max(1,parseInt($('hh').value)||1);
+  const earned=num('earned'), unearned=num('unearned')+num('other');
+  const gross=earned+unearned;
+  let adj = gross - EARN_DED*earned - STD_DED(s);
+  if(senior && num('medical')>MED_THRESH) adj -= (num('medical')-MED_THRESH);
+  adj=Math.max(0,adj);
+  const shelter=num('rent')+num('util');
+  let excess=Math.max(0, shelter - SHELTER_RATE*adj);
+  if(!senior) excess=Math.min(excess, SHELTER_CAP);
+  const net=Math.max(0, adj-excess);
+  const incomeOK = senior ? (net<=netLimit(s)) : (gross<=grossLimit(s) && net<=netLimit(s));
+  let benefit=Math.max(0, Math.round(maxAllot(s)-0.30*net));
+  if(incomeOK && s<=2 && benefit<MIN_BENEFIT) benefit=MIN_BENEFIT;
+  return {s,gross,net,incomeOK,benefit};
+}
+
+function showResults(){
+  const r=calc();
+  $('formCard').classList.add('hidden'); $('gateCard').classList.add('hidden');
+  $('resultCard').classList.remove('hidden');
+  const v=$('verdict'), lab=$('verdictLab'), sub=$('verdictSub');
+  if(r.incomeOK && r.benefit>0){ v.className='verdict yes'; lab.textContent="You're likely eligible"; sub.textContent="Based on what you entered, you appear to qualify."; }
+  else if(r.net <= netLimit(r.s)*1.15){ v.className='verdict maybe'; lab.textContent="You may be eligible"; sub.textContent="You're close to the limit — it's worth applying to find out."; }
+  else { v.className='verdict no'; lab.textContent='Likely over the limit'; sub.textContent='Based on what you entered, you may be over the income limit — but special deductions can change this.'; }
+  $('estNum').textContent = r.benefit>0 ? '$'+r.benefit : '—';
+  const st=$('state').value.trim();
+  const notes=[];
+  if(senior) notes.push('Because someone is 60+ or disabled, you skip the gross-income test, your medical costs over $35/mo count, and your shelter deduction is uncapped — three senior advantages most people miss.');
+  if(num('medical')>MED_THRESH && senior) notes.push('Your medical costs lowered your countable income.');
+  if(!senior) notes.push('Non-senior households must also pass a gross-income test.');
+  if(st==='Alaska'||st==='Hawaii') notes.push('<b>Note:</b> '+st+' uses different SNAP figures than the 48 states — treat this as a rough estimate; we\'re adding exact '+st+' numbers soon.');
+  notes.push('Next step: apply through your state — only they can confirm your exact amount.');
+  $('notes').innerHTML = notes.map(n=>'• '+n).join('<br>');
+  $('applyLink').textContent = 'Apply for SNAP in '+(st||'your state')+' →';
+  // (prototype) lead capture would POST email/phone/state/result to beehiiv here
+  console.log('LEAD →', {email:$('email').value, phone:$('phone').value, smsConsent:$('smsok').checked, state:st, result:r});
+}
+
+$('toGate').onclick=()=>{ $('formCard').classList.add('hidden'); $('gateCard').classList.remove('hidden'); window.scrollTo(0,0); };
+function encode(d){return Object.keys(d).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(d[k])).join('&');}
+$('toResults').onclick=()=>{
+  const email=$('email').value.trim(), phone=$('phone').value.trim();
+  if(!email || !phone){ alert('Please enter your email and phone number to see your estimate.'); return; }
+  const r=calc();
+  // Capture lead to Netlify Forms (no API keys). Fails silently when opened as a local file.
+  try{ fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:encode({'form-name':'snap-leads',email:email,phone:phone,sms_consent:$('smsok').checked?'yes':'no',
+      state:$('state').value,household:$('hh').value,
+      result_status:(r.incomeOK&&r.benefit>0)?'likely-eligible':(r.net<=netLimit(r.s)*1.15?'maybe':'over-limit'),
+      result_estimate:r.benefit})}); }catch(e){}
+  showResults(); window.scrollTo(0,0);
+};
+</script>
+</body>
+</html>
