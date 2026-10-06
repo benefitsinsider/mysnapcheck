@@ -233,7 +233,7 @@ footer.site .dis{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;mar
   <p><strong style="color:#fff">Benefits Insider</strong> &middot; Next Chapter Media</p>
   <div class="dis">
     <p>mysnapcheck.org is not affiliated with, or endorsed by, the U.S. Department of Agriculture, any state SNAP agency, or any other government body. This is general education, not individualized legal or financial advice. Only your state SNAP office can confirm your eligibility, your benefit amount, and the rules that apply to your case. USDA SNAP information line: 1-800-221-5689.</p>
-    <p>Rules and figures are for October 1, 2026 through September 30, 2027 (federal fiscal year 2027), for the 48 states and D.C. unless noted, and were last checked October 5, 2026. Sources: fns.usda.gov (work requirements; One Big Beautiful Bill Act implementation memoranda; FY2027 cost-of-living adjustments) and 7 CFR 273.</p>
+    <p>Rules and figures are for October 1, 2026 through September 30, 2027 (federal fiscal year 2027), for the 48 states and D.C. unless noted, and were last checked October 6, 2026. Sources: fns.usda.gov (work requirements; One Big Beautiful Bill Act ABAWD Exceptions memo, Oct 3, 2025; Time Limit Changes Q&amp;A #1, June 11, 2026; FY2027 cost-of-living adjustments, Aug 21, 2026) and 7 CFR 273.</p>
     <p>By submitting the form you agree to receive the free Benefits Insider newsletter by email. If you provide a mobile number and check the box, you also agree to join the Benefits Insider weekly text list. We will never sell or share your information. Consent is not a condition of any purchase. Message and data rates may apply. Reply STOP to cancel, HELP for help.
     <a href="https://benefitsinsider.co/terms">Terms</a> &middot; <a href="privacy.html">Privacy Policy</a>.</p>
   </div>
@@ -301,7 +301,7 @@ var Q = [
  {id:"status", q:"Where are you with SNAP right now?", sub:"",
   opts:[["have","I get SNAP now",""],["applying","I am applying, or thinking about it",""],["cut","My benefits were cut off or denied",""]]},
  {id:"age", q:"How old are you?", sub:"The work rules are set by age.",
-  opts:[["18","18 to 54",""],["55","55 to 59","New to the time limit under the Big Beautiful Bill."],["60","60 to 64",""],["65","65 or older",""]]},
+  opts:[["18","18 to 54",""],["55","55 to 59","New to the time limit under the Big Beautiful Bill."],["60","60 to 64","Also new to the time limit, though excused from the general work rules."],["65","65 or older","Outside the time limit."]]},
  {id:"child", q:"Is there a child in your SNAP household?", sub:"A child you are responsible for, living with you.",
   opts:[["u14","Yes, a child under 14",""],["teen","Yes, but my youngest is 14 to 17",""],["none","No",""]],
   how:"<b>How to tell:</b> Count only children who are part of your SNAP case, the ones listed on your approval notice. The age that matters is your youngest child's age today."},
@@ -436,7 +436,7 @@ function showResults(){
   R.groups.forEach(function(gr,gi){ h += '<div class="grp"><div class="gh">'+ic(groupIcon(gr.t))+'<h3>'+gr.t+'</h3></div>'+items(gr.items,"g"+gi,done)+'</div>'; });
   h += '<div class="actions"><button class="pill" id="print">Print my checklist</button><button class="pill ghost" id="redo">Start over</button></div>';
   h += estimatorHTML() + sponsorBlock();
-  h += '<p class="src">Sources: fns.usda.gov (SNAP work requirements; One Big Beautiful Bill Act implementation memoranda; FY2027 cost-of-living adjustments) &middot; 7 CFR 273.10 and 273.12. Checked October 5, 2026. General education, not individual advice. Your state SNAP office decides your case.</p>';
+  h += '<p class="src">Sources: fns.usda.gov (SNAP work requirements; One Big Beautiful Bill Act ABAWD Exceptions memo; Time Limit Changes Q&amp;A #1, June 11, 2026; FY2027 cost-of-living adjustments) &middot; 7 CFR 271.2, 273.2, 273.7, 273.11, 273.12, 273.14, 273.15, 273.24. Checked October 6, 2026. General education, not individual advice. Your state SNAP office decides your case.</p>';
   $("rbody").innerHTML = h;
   $("results").style.display = "block";
   $("tool").innerHTML = '<p class="eyebrow">Done</p><h2 style="font-size:28px;margin-top:8px">You are in group '+g.n+'.</h2>'+

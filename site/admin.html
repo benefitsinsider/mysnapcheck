@@ -35,7 +35,7 @@ th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate
 (function(){
 var $=function(i){return document.getElementById(i)};var ROWS=[];
 var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
-var CAT={"1":"1 · 60 and older","2":"2 · 55–59, no exemption","3":"3 · 18–54, no exemption","4":"4 · child under 14","5":"5 · disability / caregiver / pregnant","6":"6 · veteran / homeless / foster","7":"7 · tribal member","8":"8 · student / treatment / working 30+"};
+var CAT={"1":"1 · 65 and older","2":"2 · 55–64, no exemption","3":"3 · 18–54, no exemption","4":"4 · child under 14","5":"5 · disability / caregiver / pregnant","6":"6 · veteran / homeless / foster","7":"7 · tribal member","8":"8 · student / treatment / working 30+"};
 function load(pw){
   $("err").textContent="";
   fetch("/api/admin",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({password:pw})})
