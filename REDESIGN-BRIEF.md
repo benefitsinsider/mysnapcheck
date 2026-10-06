@@ -26,8 +26,8 @@ Based on USDA Food and Nutrition Service guidance on the One Big Beautiful Bill 
 
 | # | Group | What changed for them |
 |---|---|---|
-| 1 | **Age 60 and older** | Still exempt from the general work requirements, so the time limit does not apply. Special elderly/disabled rules: medical expense deduction, no gross-income test, longer certification periods. Their job is reporting and recertifying on time. |
-| 2 | **Age 55 to 59, no disability, no child under 14 at home** | NEW. The time limit used to stop at 54. It now runs to 64. They must work, volunteer or be in training 80 hours a month, or they get 3 months of benefits in a 36-month period. This is the group that will be caught off guard. |
+| 1 | **Age 65 and older** (corrected Oct 6, 2026; was 60+) | Outside the time limit, and exempt from the general work requirements. Special elderly/disabled rules: medical expense deduction, no gross-income test, longer certification periods. Their job is reporting and recertifying on time. |
+| 2 | **Age 55 to 64, no disability, no child under 14 at home** (corrected Oct 6, 2026; was 55–59) | NEW. The time limit used to stop at 54. It now runs through 64, including people 60–64 who are excused from the general work requirements (FNS Q&A, June 2026). They must work, volunteer or be in training 80 hours a month, or they get 3 months of benefits in a 36-month period. This is the group that will be caught off guard. |
 | 3 | **Age 18 to 54, no child under 14 at home** | Already under the time limit; now the exemptions are narrower. |
 | 4 | **Parents and caretakers** | The exemption now covers a child under 14 (it was under 18). An adult whose youngest child is 14 to 17 is now subject to the time limit. |
 | 5 | **People with a disability, or caring for someone who cannot care for themselves** | Exempt from the work requirements if medically certified. Their job is keeping the certification current. |

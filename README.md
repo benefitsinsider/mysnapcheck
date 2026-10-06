@@ -16,7 +16,7 @@ Publish dir is now `site` (from netlify.toml). Add environment variables:
 The old Netlify Forms lead capture (`snap-leads`) is gone; leads now go to GoHighLevel and Beehiiv.
 
 ## The groups
-1 Age 60+ · 2 Age 55–59, no exemption (NEW time limit) · 3 Age 18–54, no exemption · 4 Child under 14 · 5 Disability / caregiver / pregnant · 6 Veteran / homeless / former foster youth (exemptions REMOVED) · 7 Tribal member (NEW exemption) · 8 Student / treatment / working 30+ hours.
+1 Age 65+ · 2 Age 55–64, no exemption (NEW time limit) · 3 Age 18–54, no exemption · 4 Child under 14 · 5 Disability / caregiver / pregnant · 6 Veteran / homeless / former foster youth (exemptions REMOVED) · 7 Tribal member (NEW exemption) · 8 Student / treatment / working 30+ hours.
 Parents whose youngest is 14–17 land in group 2 or 3 by age, with an extra item. GoHighLevel tag: `snap-group-N`.
 
 ## Tracking
@@ -24,7 +24,7 @@ Parents whose youngest is 14–17 land in group 2 or 3 by age, with an extra ite
 
 ## Sources (checked 2026-10-05)
 fns.usda.gov: SNAP work requirements page; OBBB ABAWD exceptions implementation memo (Oct 3, 2025: time limit to age 64, child exemption under 14, veteran/homeless/foster-youth exceptions removed, tribal exception added); FY2027 COLA tables (page updated Oct 1, 2026). 7 CFR 273.10 (certification periods) and 273.12 (reporting).
-⚠️ Age 60–64: the time limit statute now runs to 64, but FNS states people 60+ remain excused from the general work requirements, which excuses them from the time limit. The site places 60–64 in group 1 and tells them to confirm with their state.
+Age 60–64: under the time limit unless another exception applies (FNS OBBB Time Limit Q&A #1, June 11, 2026, Q4), but still excused from the general work requirements and mandatory E&T. The site places them in group 2 and still shows them the 60+ rules (medical deduction, no gross test, uncapped shelter, $4,750 assets, 24-month certification).
 
 ## Maintenance
 - Every October 1: FY figures in `site/index.html` (estimator constants) and the gross-limit line in `site/checklist.js`; update "checked" dates.
