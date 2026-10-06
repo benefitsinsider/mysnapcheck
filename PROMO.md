@@ -17,7 +17,7 @@ Image: `cards/checkup-promo/snap-skool-tease.png`
 **Title:** Find your group under the new SNAP rules (free, 2 minutes)
 
 **Post:**
-The rules for keeping SNAP changed on July 4, 2025, and most people found out when the
+The rules for keeping SNAP changed in 2025 with the Big Beautiful Bill, and most people found out when the
 card stopped working.
 
 The time limit now runs to age 64. The exemption for parents now stops when the youngest

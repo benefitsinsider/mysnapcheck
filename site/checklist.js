@@ -5,7 +5,7 @@
 var BISnap = (function(){
   var GROUPS = {
     1: {n:1, name:"Age 60 and older", tl:false, why:"Federal rules excuse anyone 60 or older from the general work requirements, and that also excuses you from the time limit. The 2025 law raised the time-limit age to 64, so confirm your status with your state."},
-    2: {n:2, name:"Age 55 to 59, no exemption", tl:true, why:"This is new. Before July 4, 2025, the time limit stopped at age 54. It now runs to 64. If no exemption applies to you, you must meet the work rule or you get 3 months of benefits in a 36-month period."},
+    2: {n:2, name:"Age 55 to 59, no exemption", tl:true, why:"This is new. Before the 2025 law, the time limit stopped at age 54. It now runs to 64. If no exemption applies to you, you must meet the work rule or you get 3 months of benefits in a 36-month period."},
     3: {n:3, name:"Age 18 to 54, no exemption", tl:true, why:"You were already under the time limit. The 2025 law narrowed the exemptions, so check whether one still applies to you."},
     4: {n:4, name:"Parent or caretaker of a child under 14", tl:false, why:"Having a child under 14 in your SNAP household excuses you from the time limit. That age used to be 18. The month your youngest turns 14, the time limit can apply to you unless another exemption does."},
     5: {n:5, name:"Disability, caregiver, or pregnant", tl:false, why:"You are excused from the work rules if you cannot work because of a physical or mental limitation, you are pregnant, or you care for a child under 6 or for someone who cannot care for themselves. Your job is keeping the paperwork current."},
