@@ -3,7 +3,11 @@
    If today is outside start..end, nothing is shown anywhere. */
 var BISponsor = {
   name: "Propel",
-  logo: "assets/propel-wordmark.svg",          // relative to the site root
+  // STANDING RULE (Kwame, 2026-10-06): every time the sponsor is shown, show the logo MARK with the
+  // wordmark, on the page, in the email and on any promo image. Never the name alone.
+  mark: "assets/propel-icon.svg",              // the logo mark, relative to the site root
+  logo: "assets/propel-wordmark.svg",          // the wordmark
+  logoPng: "https://mysnapcheck.org/assets/propel-logo.png", // mark + wordmark lockup, absolute, for email clients
   start: "2026-10-01", end: "2026-12-31",        // contract term; block disappears after `end`
   heading: "Check your EBT balance in seconds, free.",
   // Approved sponsor language (Propel batch 01, section E) with the mandatory "private app" line.

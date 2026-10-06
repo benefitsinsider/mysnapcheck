@@ -159,7 +159,7 @@ footer.site .dis{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;mar
 .verdict b{font-size:22px;display:block}
 .verdict .big{font:700 44px/1.1 var(--display);color:var(--navy);margin:8px 0 2px}
 .sponsor{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:26px;margin-top:22px}
-.sponsor img{height:38px;display:block;margin-bottom:14px}
+.sponsor .lock{display:flex;align-items:center;gap:12px;margin-bottom:14px}.sponsor .lock img{height:40px;display:block}.sponsor .lock img.m{height:44px}
 .sponsor .big{font-family:var(--display);font-weight:700;font-size:26px;color:var(--navy);margin:6px 0 8px}
 @media(max-width:620px){.est .g{grid-template-columns:1fr}}
 </style>
@@ -421,7 +421,7 @@ function groupIcon(t){
 function sponsorBlock(){
   if (!BISponsor.active()) return "";
   return '<div class="sponsor"><p class="eyebrow">From our sponsor</p>'+
-    '<img src="'+BISponsor.logo+'" alt="'+esc(BISponsor.name)+'"><p class="big">'+esc(BISponsor.heading)+'</p>'+
+    '<div class="lock"><img class="m" src="'+BISponsor.mark+'" alt=""><img src="'+BISponsor.logo+'" alt="'+esc(BISponsor.name)+'"></div><p class="big">'+esc(BISponsor.heading)+'</p>'+
     '<p class="fs-17">'+esc(BISponsor.line)+'</p>'+
     '<p><a class="pill" href="'+BISponsor.url+'" target="_blank" rel="noopener sponsored">'+esc(BISponsor.cta)+' &rarr;</a></p>'+
     '<p class="fine">'+esc(BISponsor.disclosure)+'</p></div>';

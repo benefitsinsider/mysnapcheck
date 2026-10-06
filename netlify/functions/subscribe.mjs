@@ -70,6 +70,7 @@ export function checklistEmail(first, answers) {
     `<p style="margin:14px 0 0;font:16px/1.55 Arial,Helvetica,sans-serif;color:#111827">Nobody will call you because of this email. I don't work for any agency.</p>` +
     (sponsor.active() ? `<div style="margin:22px 0 0;padding:18px 20px;border:2px solid #034186;border-radius:12px;background:#ffffff">` +
       `<p style="margin:0;font:bold 11px/1 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#2F6BA5">From our sponsor</p>` +
+      `<p style="margin:12px 0 0"><img src="${sponsor.logoPng}" alt="${esc(sponsor.name)}" height="44" style="height:44px;display:block;border:0"></p>` +
       `<p style="margin:8px 0 6px;font:bold 20px/1.25 Georgia,serif;color:#034186">${esc(sponsor.heading)}</p>` +
       `<p style="margin:0 0 10px;font:15px/1.5 Arial,Helvetica,sans-serif;color:#111827">${esc(sponsor.line)}</p>` +
       `<p style="margin:0 0 10px"><a href="${sponsor.url}" style="color:#034186;font-weight:bold">${esc(sponsor.cta)} →</a></p>` +
