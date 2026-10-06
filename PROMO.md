@@ -7,7 +7,7 @@ Tracking links (each `?src=` word becomes a `src-<word>` tag in GoHighLevel):
 | Skool | https://mysnapcheck.org/?src=skool |
 | YouTube replies / description | https://mysnapcheck.org/?src=youtube |
 | Facebook | https://mysnapcheck.org/?src=facebook |
-| Text keyword MYSNAP | https://mysnapcheck.org/?src=sms |
+| Text keyword SNAP | https://mysnapcheck.org/?src=sms |
 | Email (Beehiiv) | https://mysnapcheck.org/?src=email |
 
 ## Skool post

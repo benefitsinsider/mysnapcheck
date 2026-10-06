@@ -20,7 +20,7 @@ The old Netlify Forms lead capture (`snap-leads`) is gone; leads now go to GoHig
 Parents whose youngest is 14–17 land in group 2 or 3 by age, with an extra item. GoHighLevel tag: `snap-group-N`.
 
 ## Tracking
-`?src=word` on any link becomes the tag `src-word` (sms, youtube, skool, email…). Text keyword: MYSNAP → `https://mysnapcheck.org/?src=sms`.
+`?src=word` on any link becomes the tag `src-word` (sms, youtube, skool, email…). Text keyword: SNAP (existing keyword, workflow updated) → `https://mysnapcheck.org/?src=sms`.
 
 ## Sources (checked 2026-10-05)
 fns.usda.gov: SNAP work requirements page; OBBB ABAWD exceptions implementation memo (Oct 3, 2025: time limit to age 64, child exemption under 14, veteran/homeless/foster-youth exceptions removed, tribal exception added); FY2027 COLA tables (page updated Oct 1, 2026). 7 CFR 273.10 (certification periods) and 273.12 (reporting).
