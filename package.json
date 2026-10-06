@@ -1,0 +1,8 @@
+{
+  "name": "mysnapcheck",
+  "private": true,
+  "description": "My SNAP Check — mysnapcheck.org",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>My SNAP Check sign-ups</title>
+<style>
+:root{--navy:#034186;--blue:#2F6BA5;--gold:#FFDE59;--ink:#030712;--gray:#E5E7EB;--bg:#F6F8FA;--slate:#4B5563}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,-apple-system,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
+h1{font:700 28px/1.2 Georgia,serif;color:var(--navy);margin:0 0 4px}.sub{color:var(--slate);margin:0 0 22px}
+.card{background:#fff;border:1px solid var(--gray);border-radius:12px;padding:20px;margin-bottom:18px}
+input[type=password]{font-size:18px;padding:12px 14px;border:2px solid var(--gray);border-radius:10px;width:100%;max-width:360px}
+button{font:700 16px Inter,system-ui,sans-serif;background:var(--navy);color:#fff;border:0;border-radius:999px;padding:12px 24px;cursor:pointer;margin-top:12px}
+button.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.err{color:#9B1B30;font-weight:700;margin-top:10px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
+.tile{background:#fff;border:1px solid var(--gray);border-radius:12px;padding:16px 18px}
+.tile .l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);font-weight:700}
+.tile .v{font:700 32px/1.2 Georgia,serif;color:var(--navy)}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--gray);vertical-align:top}
+th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.bar{height:10px;background:var(--navy);border-radius:5px;display:inline-block;vertical-align:middle}
+.ok{color:#1f7a3a;font-weight:700}.no{color:#9B1B30;font-weight:700}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+#out{display:none}
+</style></head><body><div class="wrap">
+<h1>My SNAP Check sign-ups</h1><p class="sub">Who completed the checkup, by day, and what was collected.</p>
+<div class="card" id="login"><label for="pw"><b>Password</b></label><br><input type="password" id="pw" autocomplete="current-password"><br><button id="go">Show sign-ups</button><div class="err" id="err"></div></div>
+<div id="out">
+  <div class="tiles" id="tiles"></div>
+  <div class="card"><h2 style="margin:0 0 10px;font:700 20px Georgia,serif;color:var(--navy)">Completions by day</h2><table id="byday"></table></div>
+  <div class="card"><div class="row"><h2 style="margin:0;font:700 20px Georgia,serif;color:var(--navy);flex:1">Everyone, newest first</h2><button class="ghost" id="csv" style="margin:0">Download CSV</button><button class="ghost" id="lock" style="margin:0">Lock</button></div><table id="list"></table></div>
+</div>
+</div>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};var ROWS=[];
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var CAT={"1":"1 · 60 and older","2":"2 · 55–59, no exemption","3":"3 · 18–54, no exemption","4":"4 · child under 14","5":"5 · disability / caregiver / pregnant","6":"6 · veteran / homeless / foster","7":"7 · tribal member","8":"8 · student / treatment / working 30+"};
+function load(pw){
+  $("err").textContent="";
+  fetch("/api/admin",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({password:pw})})
+  .then(function(r){return r.json().then(function(j){return {s:r.status,j:j}})})
+  .then(function(x){ if(x.s!==200){$("err").textContent=x.j.error||"Could not load";return;}
+    try{sessionStorage.setItem("bi-admin-pw",pw)}catch(e){}
+    ROWS=x.j.rows; render(); $("login").style.display="none"; $("out").style.display="block"; })
+  .catch(function(){$("err").textContent="Could not reach the server."});
+}
+function day(ts){ var d=new Date(ts); return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}); }
+function render(){
+  var total=ROWS.length, phones=ROWS.filter(function(r){return r.phone_given}).length, emailed=ROWS.filter(function(r){return r.emailed}).length, stored=ROWS.filter(function(r){return r.stored}).length;
+  var today=new Date().toDateString(), tod=ROWS.filter(function(r){return new Date(r.ts).toDateString()===today}).length;
+  $("tiles").innerHTML=[["Completed",total],["Today",tod],["Gave email",total],["Also gave phone",phones],["Checklist emailed",emailed],["In GoHighLevel",stored]]
+    .map(function(t){return '<div class="tile"><div class="l">'+t[0]+'</div><div class="v">'+t[1]+'</div></div>'}).join("");
+  var by={}; ROWS.forEach(function(r){var k=new Date(r.ts).toDateString(); by[k]=by[k]||{n:0,p:0,ts:r.ts}; by[k].n++; if(r.phone_given)by[k].p++;});
+  var days=Object.keys(by).sort(function(a,b){return new Date(b)-new Date(a)}); var max=Math.max.apply(null,days.map(function(k){return by[k].n}).concat([1]));
+  $("byday").innerHTML='<tr><th>Day</th><th>Completed</th><th></th><th>With phone</th></tr>'+days.map(function(k){return '<tr><td>'+esc(day(by[k].ts))+'</td><td class="n">'+by[k].n+'</td><td><span class="bar" style="width:'+Math.round(by[k].n/max*220)+'px"></span></td><td class="n">'+by[k].p+'</td></tr>'}).join("");
+  $("list").innerHTML='<tr><th>When</th><th>Name</th><th>Email</th><th>Phone</th><th>Group</th><th>Came from</th><th>Emailed</th></tr>'+ROWS.map(function(r){
+    return '<tr><td>'+esc(new Date(r.ts).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))+'</td><td>'+esc(r.first_name)+'</td><td>'+esc(r.email)+'</td><td>'+(r.phone_given?'<span class="ok">yes</span>':'<span class="no">no</span>')+'</td><td>'+esc(CAT[r.category]||r.category)+'</td><td>'+esc(r.src||"direct")+'</td><td>'+(r.emailed?'<span class="ok">yes</span>':'<span class="no">no</span>')+'</td></tr>'}).join("");
+}
+$("go").onclick=function(){load($("pw").value)}; $("pw").onkeydown=function(e){if(e.key==="Enter")load($("pw").value)};
+$("lock").onclick=function(){try{sessionStorage.removeItem("bi-admin-pw")}catch(e){} ROWS=[]; $("out").style.display="none"; $("login").style.display="block"; $("pw").value="";};
+$("csv").onclick=function(){ var h=["when","first_name","email","phone_given","group","source","in_ghl","checklist_emailed"];
+  var lines=[h.join(",")].concat(ROWS.map(function(r){return [r.ts,r.first_name,r.email,r.phone_given?"yes":"no",r.category,r.src||"direct",r.stored?"yes":"no",r.emailed?"yes":"no"].map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}));
+  var a=document.createElement("a"); a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(lines.join("\n")); a.download="snap-signups.csv"; a.click(); };
+var saved=null; try{saved=sessionStorage.getItem("bi-admin-pw")}catch(e){} if(saved) load(saved);
+})();
+</script></body></html>
