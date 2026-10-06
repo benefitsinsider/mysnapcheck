@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My SNAP Check — Benefits Insider</title>
-<meta name="description" content="The rules for keeping SNAP changed in 2025. Find your group and get a yearly checklist of what to report, when to recertify, and how to keep your benefits. Free, and we will never call you.">
+<meta name="description" content="The rules for keeping SNAP changed with the Big Beautiful Bill. Find your group and get a yearly checklist of what to report, when to recertify, and how to keep your benefits. Free, and we will never call you.">
 <meta property="og:title" content="Don't lose your food benefits over a letter you didn't open.">
-<meta property="og:description" content="The rules for keeping SNAP changed in 2025. Find your group. Get your yearly checklist. About 2 minutes, free, nobody calls you.">
+<meta property="og:description" content="The rules for keeping SNAP changed with the Big Beautiful Bill. Find your group. Get your yearly checklist. About 2 minutes, free, nobody calls you.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -190,7 +190,7 @@ footer.site .dis{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;mar
     <ul class="promises" style="margin-top:26px">
       <li><b>It&rsquo;s free.</b> Nothing is sold inside it.</li>
       <li><b>Nobody calls you out of the blue.</b> Not me, not an agent, not a &ldquo;benefits specialist.&rdquo;</li>
-      <li><b>It fits your situation.</b> Eight groups under the 2025 law, each with its own list.</li>
+      <li><b>It fits your situation.</b> Eight groups under the Big Beautiful Bill, each with its own list.</li>
     </ul>
     <p class="smsline" id="smsline">On your TV or computer? <b>Text MYSNAP to 1-888-459-8182</b> and I&rsquo;ll text you this link to open on your phone.</p>
     <p class="runtime mt-14"><b>About 2 minutes</b> &middot; Checked against USDA rules and the FY2027 figures &middot; Works on any device</p>
@@ -204,7 +204,7 @@ footer.site .dis{border-top:1px solid rgba(255,255,255,.12);padding-top:16px;mar
   <div class="narrow" style="text-align:center"><p class="eyebrow">How it works</p><h2 class="mt-10">Three steps. About two minutes.</h2></div>
   <div class="how">
     <div class="card"><span class="num">1</span><span data-ic="chat"></span><h3>Answer a few questions</h3><p>Your age, your household, and whether any of the exemptions fit you. Not sure? There is help on every one.</p></div>
-    <div class="card"><span class="num">2</span><span data-ic="list"></span><h3>Find your group</h3><p>One of eight groups under the 2025 law. On my videos I will say &ldquo;if you&rsquo;re in group 2,&rdquo; and you will know.</p></div>
+    <div class="card"><span class="num">2</span><span data-ic="list"></span><h3>Find your group</h3><p>One of eight groups under the Big Beautiful Bill. On my videos I will say &ldquo;if you&rsquo;re in group 2,&rdquo; and you will know.</p></div>
     <div class="card"><span class="num">3</span><span data-ic="done"></span><h3>Get your yearly checklist</h3><p>Income updates, recertification, the interview, address changes, and the work rule if it applies to you. Check items off and print it.</p></div>
   </div>
 </div></section>
@@ -301,7 +301,7 @@ var Q = [
  {id:"status", q:"Where are you with SNAP right now?", sub:"",
   opts:[["have","I get SNAP now",""],["applying","I am applying, or thinking about it",""],["cut","My benefits were cut off or denied",""]]},
  {id:"age", q:"How old are you?", sub:"The work rules are set by age.",
-  opts:[["18","18 to 54",""],["55","55 to 59","New to the time limit under the 2025 law."],["60","60 to 64",""],["65","65 or older",""]]},
+  opts:[["18","18 to 54",""],["55","55 to 59","New to the time limit under the Big Beautiful Bill."],["60","60 to 64",""],["65","65 or older",""]]},
  {id:"child", q:"Is there a child in your SNAP household?", sub:"A child you are responsible for, living with you.",
   opts:[["u14","Yes, a child under 14",""],["teen","Yes, but my youngest is 14 to 17",""],["none","No",""]],
   how:"<b>How to tell:</b> Count only children who are part of your SNAP case, the ones listed on your approval notice. The age that matters is your youngest child's age today."},
@@ -318,7 +318,7 @@ function total(){ var n=0; Q.forEach(function(q){ if(!q.when||q.when(A)) n++; })
 function renderStart(){
   $("tool").innerHTML =
     '<p class="eyebrow">Your free SNAP check</p><h2 style="font-size:28px;margin-top:8px">Which group are you in?</h2>'+
-    '<div class="count"><div class="t"><b>Eight groups under the 2025 law. Each has its own yearly checklist.</b></div></div>'+
+    '<div class="count"><div class="t"><b>Eight groups under the Big Beautiful Bill. Each has its own yearly checklist.</b></div></div>'+
     '<p class="c-slate fs-17">Five short questions. Then your group, your checklist, and a benefit estimate if you want one.</p>'+
     '<button class="pill gold" id="go" style="width:100%;margin-top:8px">Find my group &rarr;</button>'+
     '<p class="nocall">No cold calls. Ever.<em>I am not a caseworker and I don&rsquo;t work for any agency.</em></p>';

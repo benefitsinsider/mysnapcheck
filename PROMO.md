@@ -38,7 +38,7 @@ groups with the most questions in the next video.
 
 ## YouTube reply (to a comment)
 
-Thank you for the question. The rules for keeping SNAP changed in 2025, and the answer
+Thank you for the question. The rules for keeping SNAP changed with the Big Beautiful Bill, and the answer
 depends on which of eight groups you fall into. Take the free 2-minute check here and it
 gives you your group and your yearly checklist: https://mysnapcheck.org/?src=youtube
 No calls, nothing sold.
