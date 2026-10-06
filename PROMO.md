@@ -17,7 +17,7 @@ Image: `cards/checkup-promo/snap-skool-tease.png`
 **Title:** Find your group under the new SNAP rules (free, 2 minutes)
 
 **Post:**
-The rules for keeping SNAP changed in 2025 with the Big Beautiful Bill, and most people find out when their
+The rules for keeping SNAP changed with the Big Beautiful Bill, and most people find out when their
 EBT card stops working.
 
 The time limit now runs to age 64. The exemption for parents now stops when the youngest
