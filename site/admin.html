@@ -47,20 +47,21 @@ function load(pw){
 }
 function day(ts){ var d=new Date(ts); return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}); }
 function render(){
-  var total=ROWS.length, phones=ROWS.filter(function(r){return r.phone_given}).length, emailed=ROWS.filter(function(r){return r.emailed}).length, stored=ROWS.filter(function(r){return r.stored}).length;
+  var total=ROWS.length, phones=ROWS.filter(function(r){return r.phone_given}).length, emailed=ROWS.filter(function(r){return r.emailed}).length, stored=ROWS.filter(function(r){return r.stored}).length, bh=ROWS.filter(function(r){return r.beehiiv==="ok"}).length, bhUnknown=ROWS.filter(function(r){return !r.beehiiv}).length;
+  function st(v,okWord){ if(v==null) return '<span class="no" title="logged before this column existed">&mdash;</span>'; var ok=(v==="ok"||String(v).indexOf("sent")===0); return '<span class="'+(ok?"ok":"no")+'" title="'+esc(String(v))+'">'+(ok?okWord:esc(String(v).split(" ").slice(0,2).join(" ")))+'</span>'; }
   var today=new Date().toDateString(), tod=ROWS.filter(function(r){return new Date(r.ts).toDateString()===today}).length;
-  $("tiles").innerHTML=[["Completed",total],["Today",tod],["Gave email",total],["Also gave phone",phones],["Checklist emailed",emailed],["In GoHighLevel",stored]]
+  $("tiles").innerHTML=[["Completed",total],["Today",tod],["Gave email",total],["Also gave phone",phones],["Checklist emailed",emailed],["In GoHighLevel",stored],["In Beehiiv",bh+(bhUnknown?" <small style=\"font-size:12px;color:#6b7280\">+"+bhUnknown+" unknown</small>":"")]]
     .map(function(t){return '<div class="tile"><div class="l">'+t[0]+'</div><div class="v">'+t[1]+'</div></div>'}).join("");
   var by={}; ROWS.forEach(function(r){var k=new Date(r.ts).toDateString(); by[k]=by[k]||{n:0,p:0,ts:r.ts}; by[k].n++; if(r.phone_given)by[k].p++;});
   var days=Object.keys(by).sort(function(a,b){return new Date(b)-new Date(a)}); var max=Math.max.apply(null,days.map(function(k){return by[k].n}).concat([1]));
   $("byday").innerHTML='<tr><th>Day</th><th>Completed</th><th></th><th>With phone</th></tr>'+days.map(function(k){return '<tr><td>'+esc(day(by[k].ts))+'</td><td class="n">'+by[k].n+'</td><td><span class="bar" style="width:'+Math.round(by[k].n/max*220)+'px"></span></td><td class="n">'+by[k].p+'</td></tr>'}).join("");
-  $("list").innerHTML='<tr><th>When</th><th>Name</th><th>Email</th><th>Phone</th><th>Group</th><th>Came from</th><th>Emailed</th></tr>'+ROWS.map(function(r){
-    return '<tr><td>'+esc(new Date(r.ts).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))+'</td><td>'+esc(r.first_name)+'</td><td>'+esc(r.email)+'</td><td>'+(r.phone_given?'<span class="ok">yes</span>':'<span class="no">no</span>')+'</td><td>'+esc(CAT[r.category]||r.category)+'</td><td>'+esc(r.src||"direct")+'</td><td>'+(r.emailed?'<span class="ok">yes</span>':'<span class="no">no</span>')+'</td></tr>'}).join("");
+  $("list").innerHTML='<tr><th>When</th><th>Name</th><th>Email</th><th>Phone</th><th>Group</th><th>Came from</th><th>Beehiiv</th><th>GHL</th><th>Emailed</th></tr>'+ROWS.map(function(r){
+    return '<tr><td>'+esc(new Date(r.ts).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))+'</td><td>'+esc(r.first_name)+'</td><td>'+esc(r.email)+'</td><td>'+(r.phone_given?'<span class="ok">yes</span>':'<span class="no">no</span>')+'</td><td>'+esc(CAT[r.category]||r.category)+'</td><td>'+esc(r.src||"direct")+'</td><td>'+st(r.beehiiv,"yes")+'</td><td>'+st(r.ghl==null?(r.stored?"ok":null):r.ghl,"yes")+'</td><td>'+(r.emailed?'<span class="ok" title="'+esc(r.email_status||"")+'">yes</span>':st(r.email_status,"yes"))+'</td></tr>'}).join("");
 }
 $("go").onclick=function(){load($("pw").value)}; $("pw").onkeydown=function(e){if(e.key==="Enter")load($("pw").value)};
 $("lock").onclick=function(){try{sessionStorage.removeItem("bi-admin-pw")}catch(e){} ROWS=[]; $("out").style.display="none"; $("login").style.display="block"; $("pw").value="";};
-$("csv").onclick=function(){ var h=["when","first_name","email","phone_given","group","source","in_ghl","checklist_emailed"];
-  var lines=[h.join(",")].concat(ROWS.map(function(r){return [r.ts,r.first_name,r.email,r.phone_given?"yes":"no",r.category,r.src||"direct",r.stored?"yes":"no",r.emailed?"yes":"no"].map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}));
+$("csv").onclick=function(){ var h=["when","first_name","email","phone_given","group","source","beehiiv","ghl","checklist_emailed","email_status"];
+  var lines=[h.join(",")].concat(ROWS.map(function(r){return [r.ts,r.first_name,r.email,r.phone_given?"yes":"no",r.category,r.src||"direct",r.beehiiv||"",r.ghl||(r.stored?"ok":""),r.emailed?"yes":"no",r.email_status||""].map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}));
   var a=document.createElement("a"); a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(lines.join("\n")); a.download="snap-signups.csv"; a.click(); };
 var saved=null; try{saved=sessionStorage.getItem("bi-admin-pw")}catch(e){} if(saved) load(saved);
 })();

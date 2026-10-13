@@ -85,7 +85,7 @@ export function checklistEmail(first, answers) {
 
 async function sendChecklist({ first, email, answers, contactId }) {
   const a = cleanAnswers(answers);
-  if (!a) { console.log("CHECKLIST_EMAIL_SKIPPED no_valid_answers"); return false; }
+  if (!a) { console.log("CHECKLIST_EMAIL_SKIPPED no_valid_answers"); return "skipped: no valid answers"; }
   const { subject, html } = checklistEmail(first, a);
   try {
     if (process.env.RESEND_API_KEY && process.env.EMAIL_FROM) {
@@ -94,9 +94,8 @@ async function sendChecklist({ first, email, answers, contactId }) {
         headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
         body: JSON.stringify({ from: process.env.EMAIL_FROM, to: [email], subject, html }),
       });
-      if (!r.ok) console.log("CHECKLIST_EMAIL_ERROR resend " + r.status + " " + (await r.text()).slice(0, 300));
-      else console.log("CHECKLIST_EMAIL_SENT resend");
-      return r.ok;
+      if (!r.ok) { const msg = (await r.text()).slice(0, 300); console.log("CHECKLIST_EMAIL_ERROR resend " + r.status + " " + msg); return "error resend " + r.status + " " + msg.slice(0, 120); }
+      console.log("CHECKLIST_EMAIL_SENT resend"); return "sent resend";
     }
     if (process.env.GHL_API_KEY && contactId) {
       const r = await fetch("https://services.leadconnectorhq.com/conversations/messages", {
@@ -104,13 +103,12 @@ async function sendChecklist({ first, email, answers, contactId }) {
         headers: { Authorization: `Bearer ${process.env.GHL_API_KEY}`, Version: "2021-04-15", "content-type": "application/json" },
         body: JSON.stringify({ type: "Email", contactId, subject, html }),
       });
-      if (!r.ok) console.log("CHECKLIST_EMAIL_ERROR ghl " + r.status + " " + (await r.text()).slice(0, 300));
-      else console.log("CHECKLIST_EMAIL_SENT ghl");
-      return r.ok;
+      if (!r.ok) { const msg = (await r.text()).slice(0, 300); console.log("CHECKLIST_EMAIL_ERROR ghl " + r.status + " " + msg); return "error ghl " + r.status + " " + msg.slice(0, 120); }
+      console.log("CHECKLIST_EMAIL_SENT ghl"); return "sent ghl";
     }
     console.log("CHECKLIST_EMAIL_NOT_CONFIGURED");
-    return false;
-  } catch (e) { console.log("CHECKLIST_EMAIL_FAILED " + e.message); return false; }
+    return contactId ? "not configured" : "no GHL contact id";
+  } catch (e) { console.log("CHECKLIST_EMAIL_FAILED " + e.message); return "failed " + e.message.slice(0, 120); }
 }
 
 const GROUPS = new Set(["1", "2", "3", "4", "5", "6", "7", "8"]);
@@ -163,6 +161,7 @@ export default async (req) => {
     } catch (e) { console.log("CONSENT_WEBHOOK_FAILED " + e.message); }
   }
 
+  let beehiiv = "not configured";
   // ---- 2. Beehiiv: the newsletter, the same direct route the Money Map uses ---------
   if (process.env.BEEHIIV_API_KEY && process.env.BEEHIIV_PUB_ID) {
     try {
@@ -172,8 +171,9 @@ export default async (req) => {
         body: JSON.stringify({ email, reactivate_existing: true, send_welcome_email: true,
                                utm_source: "snap-check", utm_medium: "app", utm_campaign: src }),
       });
-      if (!r.ok) console.log("BEEHIIV_ERROR " + r.status);
-    } catch (e) { console.log("BEEHIIV_FAILED " + e.message); }
+      if (!r.ok) { const msg = (await r.text().catch(() => "")).slice(0, 200); console.log("BEEHIIV_ERROR " + r.status + " " + msg); beehiiv = "error " + r.status + " " + msg.slice(0, 120); }
+      else beehiiv = "ok";
+    } catch (e) { console.log("BEEHIIV_FAILED " + e.message); beehiiv = "failed " + e.message.slice(0, 120); }
   } else {
     console.log("BEEHIIV_NOT_CONFIGURED newsletter_signup_not_sent email=" + email);
   }
@@ -187,7 +187,7 @@ export default async (req) => {
   if (phone) tags.push("sms-weekly");
   tags.push("src-" + src);
 
-  let contactId = null, stored = false;
+  let contactId = null, stored = false, ghl = "not configured";
   if (!process.env.GHL_API_KEY) {
     console.log("GHL_NOT_CONFIGURED lead_exists_only_in_logs email=" + email);
   } else {
@@ -201,12 +201,14 @@ export default async (req) => {
       });
       const j = await r.json().catch(() => ({}));
       stored = r.ok; contactId = j?.contact?.id || j?.id || null;
+      ghl = r.ok ? "ok" : "error " + r.status + " " + JSON.stringify(j).slice(0, 120);
       if (!r.ok) console.log("GHL_ERROR " + r.status + " " + JSON.stringify(j).slice(0, 300));
-    } catch (e) { console.log("GHL_FAILED " + e.message); }
+    } catch (e) { console.log("GHL_FAILED " + e.message); ghl = "failed " + e.message.slice(0, 120); }
   }
 
   // ---- 4. Email the checklist ----------------------------------------------------
-  const emailed = await sendChecklist({ first, email, answers: a, contactId });
+  const email_status = await sendChecklist({ first, email, answers: a, contactId });
+  const emailed = email_status.startsWith("sent");
 
   // ---- 5. The sign-up log Kwame reads at /admin -----------------------------------
   // Minimal on purpose: when, who (first name + email), whether a phone was given (the
@@ -217,6 +219,7 @@ export default async (req) => {
     const key = ts + "-" + Buffer.from(email).toString("base64url").slice(0, 24);
     await getStore("snap-signups").setJSON(key, {
       ts, first_name: first, email, phone_given: Boolean(phone), category: group, src, stored, emailed,
+      beehiiv, ghl, email_status,
     });
   } catch (e) { console.log("STORE_FAILED " + e.message); }
 
